@@ -1,0 +1,5 @@
+{
+    "directory" : "src/main/webapp/vendor",
+    "proxy":"http://internet.lv.co.uk:81",
+    "https-proxy":"http://internet.lv.co.uk:81"
+}

@@ -1,0 +1,29 @@
+.DS_Store
+mqjms*
+rebel.xml
+.gradle
+rebel.xml
+*.iml
+*.ipr
+*.iws
+build
+classes
+reports
+out
+.classpath
+.project
+.settings
+.idea
+bin
+.sass-cache/
+*.lnk
+/gradlew
+/gradlew.bat
+/gradleDebugQnB.bat
+logs
+gradle-app.setting
+UNABLE TO INITIALIZE LICENSING - NO LICENSE FOUND.error
+YOUR JREBEL LICENSE HAS EXPIRED!.error
+atlassian-ide-plugin.xml
+node_modules/**
+hs_err_pid*.log
