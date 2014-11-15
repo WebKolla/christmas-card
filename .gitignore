@@ -27,3 +27,5 @@ YOUR JREBEL LICENSE HAS EXPIRED!.error
 atlassian-ide-plugin.xml
 node_modules/**
 hs_err_pid*.log
+*.sublime-project
+*.sublime-workspace
