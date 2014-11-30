@@ -1,43 +1,39 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: lv27693
- * Date: 11/11/2014
- * Time: 14:41
- */
 
-//if they DID upload a file...
-if($_FILES['photo']['name'])
-{
-    //if no errors...
-    if(!$_FILES['photo']['error'])
-    {
-        //now is the time to modify the future file name and validate the file
-        $new_file_name = strtolower($_FILES['photo']['tmp_name']); //rename file
-        if($_FILES['photo']['size'] > (1024000)) //can't be larger than 1 MB
-        {
-            $valid_file = false;
-            $message = 'Oops!  Your file\'s size is to large.';
-        }
+$valid_file;
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_FILES['photo']['name']) {
+        $date = new DateTime();
+        $timeStamp = $date->getTimestamp();
+        if (!$_FILES['photo']['error']) {
+            $extension = end(explode(".", $_FILES["photo"]["name"]));
+            $allowedExts = array("gif", "jpeg", "jpg", "png");
+            $new_file_name = strtolower($_FILES['photo']["name"]) . $timeStamp . "." . $extension; //rename file RIGHT
 
-        //if the file has passed the test
-        if($valid_file)
-        {
-            //move it to where we want it to be
-            move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/'.$new_file_name);
-            $message = 'Congratulations!  Your file was accepted.';
+            if ((($_FILES["file"]["type"] == "image/gif")
+                    || ($_FILES["file"]["type"] == "image/jpeg")
+                    || ($_FILES["file"]["type"] == "image/jpg")
+                    || ($_FILES["file"]["type"] == "image/jpeg")
+                    || ($_FILES["file"]["type"] == "image/x-png")
+                    || ($_FILES["file"]["type"] == "image/png"))
+                && ($_FILES["file"]["size"] < 2048000)
+                && in_array($extension, $allowedExts)
+            ) {
+                $valid_file = false;
+            } else {
+                $valid_file = true;
+            }
+
+
+            if ($valid_file) {
+                move_uploaded_file($_FILES['photo']['tmp_name'], '../lv-elf-images/lv-usr-uploads/' . $new_file_name);
+                echo $message = 'Congratulations!  Your file was accepted.';
+            }
+
+        } else {
+            echo $message = 'Ooops!  Your upload triggered the following error:  ' . $_FILES['photo']['error'];
         }
-    }
-    //if there is an error...
-    else
-    {
-        //set that to be the returned message
-        $message = 'Ooops!  Your upload triggered the following error:  '.$_FILES['photo']['error'];
     }
 }
 
-
-/*$_FILES['field_name']['name']
-$_FILES['field_name']['size']
-$_FILES['field_name']['type']
-$_FILES['field_name']['tmp_name']*/
+?> 
