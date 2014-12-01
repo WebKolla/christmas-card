@@ -40,5 +40,5 @@ module.exports = function( grunt ) {
         }
     });
 
-    grunt.registerTask("watchApp",['serve', 'watch'])
+    grunt.registerTask("watchApp",['watch'])
 };
