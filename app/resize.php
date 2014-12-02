@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($valid_file) {
                 move_uploaded_file($_FILES['photo']['tmp_name'],  $fileNameWithPath);
-                $userImg = '<img src="'.$fileNameWithPath.'" class="img-responsive" style="max-width:400px; max-height:200px;" id="cropbox" />';
+                $userImg = '<img src="'.$fileNameWithPath.'" class="resize-image"  id="cropbox" />';
 
             }
 
@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/css/jquery.Jcrop.min.css"/>
     <!-- App styles -->
     <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href="css/component.css"/>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -66,84 +67,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-12">
-                <form action="index.php" method="post" role="form" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <input type="file" name="photo" size="25" />
-                        <button type="submit" class="btn btn-success">Upload</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-12">
-                <form action="" role="crop">
-                    <div class="form-group">
-                        <input type="hidden" id="x" name="x" />
-                        <input type="hidden" id="y" name="y" />
-                        <input type="hidden" id="w" name="w" />
-                        <input type="hidden" id="h" name="h" />
-                        <input type="button" id="cropBtn"  value="Crop" class="btn btn-info" />
-                    </div>
-                </form>
-            </div>
+            <form action="resize.php" method="post" role="form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="photo" size="25" />
+                    <button type="submit" class="btn btn-success">Upload</button>
+                </div>
+            </form>
+            <button class="btn  btn-sucsess js-crop" id="btnCrop">Merge</button>
         </div>
         <div class="col-md-12">
-            <?php
-            if($isPost) {
-                echo $userImg;
-            }
-            ?>
+            <div class="component">
+                <div class="overlay">
+                    <img src="lv-elf-images/elf.png" class="img-responsive" id="elf" alt=""/>
+                </div>
+                <?php
+                    if($isPost) {
+                        echo $userImg;
+                    }
+                ?>
+            </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
-            <img src="lv-elf-images/elf.png" style="position: absolute; float: left;" class="img-responsive" id="elf" alt=""/>
+            <canvas id="canvas"></canvas>
         </div>
     </div>
 </div>
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<!-- jCrop JS -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.12/js/jquery.Jcrop.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-
+<script src="js/component.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $(function(){
-        /*  $("#cropbox").draggable({
-         stop: function(event, ui){
-                $('#cropbox').Jcrop({
-                    aspectRatio: 1,
-                    onSelect: updateCoords
-                });
+    $(document).ready(function(){
+        if($("body").find("#cropbox").length > 0){
+            resizeableImage($('.resize-image'));
+        }
 
-        });}*/
-        $("#elf").draggable();
+/*       $("#btnCrop").on("click", function(){
+
+           var img1 = document.getElementById('elf');
+           var img2 = document.getElementById('cropbox');
+           var canvas = document.getElementById("canvas");
+           var context = canvas.getContext("2d");
+
+           var width = img1.width;
+           var height = img1.height;
+           canvas.width = width;
+           canvas.height = height;
 
 
-//        if($("body").find($("#cropbox")).length > 0){
-//            if($("#cropbox").attr("src").length > 0){
-//                var cssObj = {
-//                    position:"absolute",
-//                    top:"0"
-//                };
-//
-//                $("#elf").css(cssObj);
-//            }
-//        }
-
-        $("#cropBtn").on("click",function(){
-            $.ajax()
-        });
-
-        function updateCoords(c){
-            $('#x').val(c.x);
-            $('#y').val(c.y);
-            $('#w').val(c.w);
-            $('#h').val(c.h);
-        };
+           var pixels = 4 * width * height;
+           context.drawImage(img1, 0, 0);
+           var image1 = context.getImageData(0, 0, width, height);
+           var imageData1 = image1.data;
+           context.drawImage(img2, 200, 10);
+           var image2 = context.getImageData(0, 0, width, height);
+           var imageData2 = image2.data;
+           while (pixels--) {
+               imageData1[pixels] = imageData1[pixels] * 1 + imageData2[pixels] * 1;
+           }
+           image1.data = imageData1;
+           context.putImageData(image1, 0, 0);
+           $(img1).hide();
+           $(img2).hide();
+       });*/
     });
 </script>
-<script src="//localhost:35729/livereload.js"></script>
 </body>
 </html>
