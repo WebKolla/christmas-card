@@ -87,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                     ?>
                 </div>
-
             </div>
             <div class="row">
                 <img id="finalImg" />
@@ -112,6 +111,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if($("body").find("#cropbox").length > 0){
             resizeableImage($('#cropbox'));
         }
+
+/*        var imageLoader = document.getElementById('fileUpload');
+        imageLoader.addEventListener('change', handleImage, false);
+        var canvas = document.getElementById('userImg');
+        var ctx = canvas.getContext('2d');
+
+        function handleImage(e){
+            var reader = new FileReader();
+            reader.onload = function(event){
+                var img = new Image();
+                img.onload = function(){
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img,0,0);
+                }
+                img.src = event.target.result;
+                $("#testImg").attr("src",event.target.result);
+            }
+            //reader.readAsDataURL(e.target.files[0]);
+        }*/
     });
 </script>
 </body>

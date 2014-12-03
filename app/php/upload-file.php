@@ -1,47 +1,33 @@
 <?php
-session_start();
+    $allowedExts = array("gif", "jpeg", "jpg", "png");
+    $temp = explode(".", $_FILES["file"]["name"]);
+    $extension = end($temp);
+    if ((($_FILES["file"]["type"] == "image/gif")
+            || ($_FILES["file"]["type"] == "image/jpeg")
+            || ($_FILES["file"]["type"] == "image/jpg")
+            || ($_FILES["file"]["type"] == "image/pjpeg")
+            || ($_FILES["file"]["type"] == "image/x-png")
+            || ($_FILES["file"]["type"] == "image/png"))
+        && ($_FILES["file"]["size"] < 2048000)
+        && in_array($extension, $allowedExts)) {
 
-$valid_file;
-$isPost;
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $isPost = true;
-    if ($_FILES['photo']['name']) {
-        $date = new DateTime();
-        $timeStamp = $date->getTimestamp();
-        if (!$_FILES['photo']['error']) {
-
-            $extension = end(explode(".", $_FILES["photo"]["name"]));
-            $allowedExts = array("gif", "jpeg", "jpg", "png");
-            $new_file_name = strtolower($_FILES['photo']["name"]).$timeStamp.".".$extension;
-            $uploadFolder = 'lv-elf-images/lv-usr-uploads/';
-
-            if ((($_FILES["file"]["type"] == "image/gif")
-                    || ($_FILES["file"]["type"] == "image/jpeg")
-                    || ($_FILES["file"]["type"] == "image/jpg")
-                    || ($_FILES["file"]["type"] == "image/jpeg")
-                    || ($_FILES["file"]["type"] == "image/x-png")
-                    || ($_FILES["file"]["type"] == "image/png"))
-                && ($_FILES["file"]["size"] < 2048000)
-                && in_array($extension, $allowedExts)
-            ) {
-                $valid_file = false;
-            } else {
-                $valid_file = true;
-                $fileNameWithPath = $uploadFolder.$new_file_name;
-            }
-
-            if ($valid_file) {
-                move_uploaded_file($_FILES['photo']['tmp_name'],  $fileNameWithPath);
-                $userImg = '<img src="'.$fileNameWithPath.'" class="resize-image"  id="cropbox" />';
-                //echo $userImg;
-                $_SESSION["img"] = $userImg;
-            }
-
+        if ($_FILES["file"]["error"] > 0) {
+            error_log($_FILES["file"]["error"]);
         } else {
-            echo $message = 'Ooops!  Your upload triggered the following error:  '.$_FILES['photo']['error'];
-        }
-    }
-}
+            $date = new DateTime();
+            $timeStamp = $date->getTimestamp();
+            $uploadFolder = "../lv-elf-images/lv-usr-uploads/";
+            $fullPath = "lv-elf-images/lv-usr-uploads/";
+            $filename = $timeStamp.$_FILES["file"]["name"];
 
+            if (file_exists($uploadFolder.$filename)) {
+                error_log($filename."already exists");
+            } else {
+                move_uploaded_file($_FILES["file"]["tmp_name"], $uploadFolder.$filename);
+                echo $fullPath.$filename;
+            }
+        }
+    }else{
+        echo "Invalid file";
+    }
 ?>
