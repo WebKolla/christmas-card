@@ -19,8 +19,8 @@
     <![endif]-->
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
+<div class="container">
+<!--    <div class="row">
         <div class="col-md-12">
             <form  id="uploadUserPic" method="post" role="form" enctype="multipart/form-data">
                 <div class="form-group">
@@ -48,6 +48,23 @@
         <div class="col-md-12">
             <canvas id="canvas" width="557" height="997"></canvas>
         </div>
+    </div>-->
+    <div class="row">
+           <div class="col-sm-6">
+                <div class="component">
+                    <div class="overlay">
+                        <img  src="lv-elf-images/elf.png" id="elf" class="img-responsive" />
+                    </div>
+                </div>
+           </div>
+           <div class="col-sm-6">
+               <form  id="uploadUserPic" method="post" role="form" enctype="multipart/form-data">
+                   <div class="form-group">
+                       <input type="file" name="file" size="25" id="fileUpload" />
+                       <button type="submit" class="btn btn-success" id="upload">Upload</button>
+                   </div>
+               </form>
+           </div>
     </div>
 </div>
 
