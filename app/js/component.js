@@ -196,26 +196,28 @@ var resizeableImage = function(image_target) {
 
   crop = function(){
         //Find the part of the image that is inside the crop box
-        var crop_canvas,
-            left = $('.overlay').offset().left - $container.offset().left,
-            top =  $('.overlay').offset().top - $container.offset().top,
-            width = $('.resize-image').width(),
-            height = $('.resize-image').height();
+      var crop_canvas = document.getElementById("canvas"),
+          topImg = document.getElementById("cropbox"),
+          bottomImg = document.getElementById("elf");
 
-        var elfLeft = $('#elf').offset().left,
-            elfTop =  $('#elf').offset().top,
-            elfWidth = $('#elf').width(),
-            elfHeight = $('#elf').height();
+      var userImgY = $("#cropbox").offset().top,
+          elfY = $("#elf").offset().top,
+          userImgX = $("#cropbox").offset().left,
+          elfX = $("#elf").offset().left;
 
-        crop_canvas = document.createElement('canvas');
-        crop_canvas.width = width-left;
-        crop_canvas.height = height-top;
+      var cordY = userImgY - elfY,
+          cordX = userImgX - elfX;
 
-        crop_canvas.getContext('2d').drawImage(image_target, left, top, width, height, 0, 0, width, height);
-        //crop_canvas.getContext('2d').drawImage(elf,elfLeft, elfTop, elfWidth, elfHeight, 0, 0, elfWidth, elfHeight);
+      var ctx = crop_canvas.getContext('2d');
+      ctx.drawImage(topImg, cordX, cordY);
+      ctx.globalAlpha = 1;
+      ctx.drawImage(bottomImg, 0, 0);
 
-        $(".resize-image").attr("src",crop_canvas.toDataURL("image/png"));
+      $(crop_canvas).hide();
+      $(topImg).hide();
+      $(bottomImg).hide();
 
+      $("#finalImg").attr("src",crop_canvas.toDataURL("image/png"));
   }
 
 

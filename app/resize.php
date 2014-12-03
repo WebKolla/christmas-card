@@ -67,9 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <form action="resize.php" method="post" role="form" enctype="multipart/form-data">
+            <form action="resize.php" id="uploadUserPic" method="post" role="form" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="file" name="photo" size="25" />
+                    <input type="file" name="photo" size="25" id="fileUpload" />
                     <button type="submit" class="btn btn-success">Upload</button>
                 </div>
             </form>
@@ -78,19 +78,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="col-md-12">
             <div class="component">
                 <div class="overlay">
-                    <img src="lv-elf-images/elf.png" class="img-responsive" id="elf" alt=""/>
+                    <img src="lv-elf-images/elf.png" id="elf" />
                 </div>
-                <?php
+                <div class="row">
+                    <?php
                     if($isPost) {
                         echo $userImg;
                     }
-                ?>
+                    ?>
+                </div>
+
+            </div>
+            <div class="row">
+                <img id="finalImg" />
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <canvas id="canvas"></canvas>
+            <canvas id="canvas" width="557" height="997"></canvas>
         </div>
     </div>
 </div>
@@ -104,37 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script type="text/javascript">
     $(document).ready(function(){
         if($("body").find("#cropbox").length > 0){
-            resizeableImage($('.resize-image'));
+            resizeableImage($('#cropbox'));
         }
-
-/*       $("#btnCrop").on("click", function(){
-
-           var img1 = document.getElementById('elf');
-           var img2 = document.getElementById('cropbox');
-           var canvas = document.getElementById("canvas");
-           var context = canvas.getContext("2d");
-
-           var width = img1.width;
-           var height = img1.height;
-           canvas.width = width;
-           canvas.height = height;
-
-
-           var pixels = 4 * width * height;
-           context.drawImage(img1, 0, 0);
-           var image1 = context.getImageData(0, 0, width, height);
-           var imageData1 = image1.data;
-           context.drawImage(img2, 200, 10);
-           var image2 = context.getImageData(0, 0, width, height);
-           var imageData2 = image2.data;
-           while (pixels--) {
-               imageData1[pixels] = imageData1[pixels] * 1 + imageData2[pixels] * 1;
-           }
-           image1.data = imageData1;
-           context.putImageData(image1, 0, 0);
-           $(img1).hide();
-           $(img2).hide();
-       });*/
     });
 </script>
 </body>
