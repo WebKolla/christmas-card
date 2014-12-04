@@ -195,7 +195,6 @@ var resizeableImage = function(image_target) {
   }*/
 
   crop = function(){
-        //Find the part of the image that is inside the crop box
       var crop_canvas = document.getElementById("canvas"),
           topImg = document.getElementById("cropbox"),
           bottomImg = document.getElementById("elf");
@@ -217,11 +216,18 @@ var resizeableImage = function(image_target) {
       $(topImg).hide();
       $(bottomImg).hide();
 
+
+      //document.location.href = crop_canvas.toDataURL("data:application/octet-stream");
+
+      //var dataDL = crop_canvas.toDataURL("image/png;base64");
+      //dataDL = dataDL.replace("image/png", "image/octet-stream");
+      //document.location.href = dataDL;
+      //document.body.removeChild(crop_canvas);
+
       $("#finalImg").attr("src",crop_canvas.toDataURL("image/png"));
+      $("#finalImg").wrap("<a download='YourElfie.png' id='downloadMe' href='"+crop_canvas.toDataURL("image/png")+"'>ccvcxv</a>").bind("click");
+      $("#downloadMe").trigger("click");
   }
-
-
-
 
 
   init();

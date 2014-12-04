@@ -1,3 +1,11 @@
-p{
-  color:$body-paragraph-color;
+h1, h2, h3, p {
+  font-family: 'Shadows Into Light', cursive;
+  color: white;
+}
+
+.footer{
+  h4, p{
+    font-family: Arial;
+    color: #1479A1;
+  }
 }

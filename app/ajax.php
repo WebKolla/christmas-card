@@ -7,6 +7,8 @@
     <title>LV= - Christmas Card - #Elfie</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
     <!-- jCrop styles -->
     <!-- App styles -->
     <link rel="stylesheet" href="css/styles.css"/>
@@ -20,51 +22,47 @@
 </head>
 <body>
 <div class="container">
-<!--    <div class="row">
-        <div class="col-md-12">
-            <form  id="uploadUserPic" method="post" role="form" enctype="multipart/form-data">
-                <div class="form-group">
-                    <input type="file" name="file" size="25" id="fileUpload" />
-                    <button type="submit" class="btn btn-success" id="upload">Upload</button>
-                </div>
-            </form>
-            <button class="btn  btn-sucsess js-crop" id="btnCrop">Merge</button>
-        </div>
-        <div class="col-md-12">
+    <div class="row">
+       <div class="col-md-6">
             <div class="component">
                 <div class="overlay">
-                    <img src="lv-elf-images/elf.png" id="elf" />
-                </div>
-                <div class="row">
-                    <img src=""  class="resize-image"  id="cropbox" />
+                    <img  src="lv-elf-images/elf.png" id="elf" class="img-responsive" />
+
                 </div>
             </div>
-            <div class="row">
-                <img id="finalImg" />
-            </div>
+           <img src=""  class="resize-image"  id="cropbox" />
+       </div>
+        <div class="col-md-6">
+            <img id="finalImg" class="hide" />
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <canvas id="canvas" width="557" height="997"></canvas>
-        </div>
-    </div>-->
-    <div class="row">
-           <div class="col-sm-6">
-                <div class="component">
-                    <div class="overlay">
-                        <img  src="lv-elf-images/elf.png" id="elf" class="img-responsive" />
-                    </div>
-                </div>
+       <div class="col-md-6">
+           <div class="col-md-12">
+               <h1>'Tis the season to be jolly!</h1>
+               <h3>Upload an image, resize and position your face until you are happy, Download you elfie and share it with your friends.</h3>
            </div>
-           <div class="col-sm-6">
+           <div class="col-md-12 centered vertical-center">
                <form  id="uploadUserPic" method="post" role="form" enctype="multipart/form-data">
                    <div class="form-group">
                        <input type="file" name="file" size="25" id="fileUpload" />
-                       <button type="submit" class="btn btn-success" id="upload">Upload</button>
+                       <button type="submit" class="btn" id="upload">Upload</button>
+
                    </div>
                </form>
+               <button class="btn  btn-sucsess js-crop" id="btnCrop">Download</button>
            </div>
+
+       </div>
+        <div class="row hide">
+            <div class="col-md-12">
+                <canvas id="canvas" width="557" height="997"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row footer">
+        <h4>Terms and conditions</h4>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget nunc justo. In euismod purus in diam eleifend dictum. Nunc condimentum ut metus vitae finibus. Phasellus aliquam nunc eu eros dignissim consequat. Curabitur cursus neque in nunc egestas sodales. Vivamus hendrerit et libero non auctor. Vivamus vitae elit ante. Sed accumsan nisi in augue facilisis, id ultricies leo pellentesque. Fusce blandit, ante eu tempus sodales, est nisl porta justo, eget ultrices diam dui quis ligula. Nullam placerat mollis pulvinar. Etiam nec lectus pellentesque, ornare massa non, consequat ligula. Praesent faucibus, libero vitae ultricies tempus, metus ex auctor justo, et eleifend elit sapien sed nunc. Donec in dolor odio. Etiam luctus turpis id dignissim ultricies. Donec auctor nulla non magna convallis, sed venenatis felis placerat.
+        </p>
     </div>
 </div>
 
@@ -76,6 +74,11 @@
 <script src="js/component.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        if($("body").find("#downloadMe").length > 0){
+            $("#downloadMe").click();
+            $("#downloadMe").hide();
+        };
+        $("#btnCrop").hide();
         $('#upload').on('click', function(e) {
             e.preventDefault();
             var file_data = $('#fileUpload').prop('files')[0];
@@ -93,9 +96,13 @@
                 success: function(data){
                     $("#cropbox").attr("src", data);
                     resizeableImage($('#cropbox'));
+                    $("#uploadUserPic").hide();
+                    $("#btnCrop").show();
                 }
             });
+
         });
+
     });
 </script>
 </body>
