@@ -7,7 +7,7 @@ h1, h2, h3, p {
   color: #1479A1; }
 
 body {
-  background-color: #134174; }
+  background-color: #07749e; }
 
 .footer {
   height: 20%;
@@ -30,8 +30,8 @@ body {
 
 .btn {
   background: #6FBC0A;
-  background-image: -webkit-linear-gradient(top, #6FBC0A, #6FBC0A);
   background-image: -webkit-linear-gradient(top, #6fbc0a, #6fbc0a);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#6fbc0a), to(#6fbc0a));
   background-image: linear-gradient(to bottom, #6fbc0a, #6fbc0a);
   border-radius: 0px;
   font-family: 'Source Sans Pro', sans-serif;
@@ -46,6 +46,7 @@ body {
 .btn:hover {
   background: #629420;
   background-image: -webkit-linear-gradient(top, #629420, #629420);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#629420), to(#629420));
   background-image: linear-gradient(to bottom, #629420, #629420);
   text-decoration: none;
   color: #ffffff; }

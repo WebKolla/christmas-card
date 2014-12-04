@@ -54,7 +54,6 @@
 	z-index: 999;
 	max-width: 557px;
 	max-height: 997px;
-    border: solid 2px rgba(222,60,80,.9);
 	box-sizing: border-box;
 	pointer-events: none;
     position: relative;

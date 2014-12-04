@@ -195,6 +195,7 @@ var resizeableImage = function(image_target) {
   }*/
 
   crop = function(){
+
       var crop_canvas = document.getElementById("canvas"),
           topImg = document.getElementById("cropbox"),
           bottomImg = document.getElementById("elf");
@@ -216,6 +217,9 @@ var resizeableImage = function(image_target) {
       $(topImg).hide();
       $(bottomImg).hide();
 
+      $("#createButtonContainer").hide();
+      $("#downloadBtnContainer").show();
+
 
       //document.location.href = crop_canvas.toDataURL("data:application/octet-stream");
 
@@ -224,9 +228,10 @@ var resizeableImage = function(image_target) {
       //document.location.href = dataDL;
       //document.body.removeChild(crop_canvas);
 
-      $("#finalImg").attr("src",crop_canvas.toDataURL("image/png"));
-      $("#finalImg").wrap("<a download='YourElfie.png' id='downloadMe' href='"+crop_canvas.toDataURL("image/png")+"'>ccvcxv</a>").bind("click");
-      $("#downloadMe").trigger("click");
+      //$("#finalImg").attr("src",crop_canvas.toDataURL("image/png"));
+      $("#downloadMe").attr("href", crop_canvas.toDataURL("image/octet-stream"));
+      //$("#finalImg").wrap("<a download='YourElfie.png' id='downloadMe' href='"+crop_canvas.toDataURL("image/png")+"'>ccvcxv</a>").bind("click");
+      //$("#downloadMe").trigger("click");
   }
 
 

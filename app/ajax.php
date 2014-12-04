@@ -26,8 +26,7 @@
        <div class="col-md-6">
             <div class="component">
                 <div class="overlay">
-                    <img  src="lv-elf-images/elf.png" id="elf" class="img-responsive" />
-
+                    <img src="lv-elf-images/elf.png" id="elf" class="img-responsive" />
                 </div>
             </div>
            <img src=""  class="resize-image"  id="cropbox" />
@@ -43,14 +42,18 @@
            <div class="col-md-12 centered vertical-center">
                <form  id="uploadUserPic" method="post" role="form" enctype="multipart/form-data">
                    <div class="form-group">
-                       <input type="file" name="file" size="25" id="fileUpload" />
+                       <input type="file" name="file" size="25" id="fileUpload" required="required" class="hide" />
+                       <button type="submit" class="btn" id="uploadFile">Upload</button>
                        <button type="submit" class="btn" id="upload">Upload</button>
-
                    </div>
                </form>
-               <button class="btn  btn-sucsess js-crop" id="btnCrop">Download</button>
+               <div id="createButtonContainer">
+                   <button class="btn js-crop" id="btnCrop">Create</button>
+               </div>
+               <div id="downloadBtnContainer">
+                   <a download='YourElfie.png' class="btn" id='downloadMe' href="">Download</a>
+               </div>
            </div>
-
        </div>
         <div class="row hide">
             <div class="col-md-12">
@@ -74,13 +77,23 @@
 <script src="js/component.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        if($("body").find("#downloadMe").length > 0){
-            $("#downloadMe").click();
-            $("#downloadMe").hide();
-        };
-        $("#btnCrop").hide();
+        $("#upload").hide();
+        $("#downloadBtnContainer").hide();
+        $("#createButtonContainer").hide();
+
+        $("#uploadFile").on("click", function(){
+            $("#fileUpload").click();
+            $("#upload").show();
+            $(this).hide();
+        });
+
         $('#upload').on('click', function(e) {
             e.preventDefault();
+            var fileVal = $("#fileUpload").val();
+            if(fileVal == ''){
+                alert("Please select a photo first!");
+                return false;
+            }
             var file_data = $('#fileUpload').prop('files')[0];
             var form_data = new FormData();
             form_data.append('file', file_data);
@@ -95,14 +108,21 @@
                 enctype: 'multipart/form-data',
                 success: function(data){
                     $("#cropbox").attr("src", data);
+
                     resizeableImage($('#cropbox'));
+
+                    //Hide File upload
                     $("#uploadUserPic").hide();
-                    $("#btnCrop").show();
+
+                    //Show create image button
+                    $("#createButtonContainer").show();
                 }
             });
-
         });
 
+        $("#downloadMe").on("click",function(){
+            $(".resize-container").remove();
+        });
     });
 </script>
 </body>
