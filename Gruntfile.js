@@ -2,7 +2,6 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks('grunt-serve');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks("grunt-contrib-compass");
-    grunt.loadNpmTasks("grunt-contrib-cssmin");
 
     grunt.initConfig({
 		serve: {
@@ -14,7 +13,7 @@ module.exports = function( grunt ) {
         watch: {
             sass: {
                 files: ['app/sass/**/*.scss','app/**/*.html', 'app/js/**/*.js'],
-                tasks: ['compass','cssmin'],
+                tasks: ['compass'],
                 options: {
                     livereload: true
                 }
@@ -27,15 +26,6 @@ module.exports = function( grunt ) {
                     config: 'Config.rb',
                     environment: 'development'
                 }
-            }
-        },
-
-        cssmin: {
-            minify: {
-                expand: true,
-                cwd: 'app/css/',
-                src: ['*.css', '*.css'],
-                dest: 'app/css'
             }
         }
     });
